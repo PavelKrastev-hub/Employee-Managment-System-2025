@@ -17,11 +17,6 @@ function App() {
 
 					<Pagination />
 				</section>
-
-				{/* User details component */}
-				{/* Create/Edit Form component */}
-				{/* Delete user component */}
-
 			</main>
 
 			<Footer />
