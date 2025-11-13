@@ -43,8 +43,8 @@ function App() {
 			streetNumber,
 		};
 
-		userData.createdAt = new Date().toISOString;
-		userData.updatedAt = new Date().toISOString;
+		userData.createdAt = new Date().toISOString();
+		userData.updatedAt = new Date().toISOString();
 
 		fetch('http://localhost:3030/jsonstore/users', {
 			method: 'POST',
@@ -54,8 +54,8 @@ function App() {
 			body: JSON.stringify(userData),
 		})
 			.then(() => {
+				closeUserModalHandler();
 				setForceRefresh(state => !state);
-
 			})
 			.catch(err => {
 				alert(err.message);
