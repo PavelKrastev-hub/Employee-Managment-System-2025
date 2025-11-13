@@ -9,6 +9,7 @@ import UserSaveModal from "./components/UserSaveModal.jsx"
 function App() {
 	const [users, setUsers] = useState([]);
 	const [showCreateUser, setShowCreateUser] = useState(false);
+	// const [sortedList, setSortedList] = useState([]);
 	const [refresh, setRefresh] = useState(true);
 
 	useEffect(() => {
@@ -32,6 +33,10 @@ function App() {
 
 	const closeUserModalHandler = () => {
 		setShowCreateUser(false);
+	};
+
+	const sortUsersHandler = () => {
+		setUsers(state => [...state].sort((userA, userB) => new Date(userB.createdAt) - new Date(userA.createdAt)));
 	};
 
 	const addUserSubmitHandler = (event) => {
@@ -74,7 +79,11 @@ function App() {
 				<section className="card users-container">
 					<Search />
 
-					<UserList users={users} forceUserRefresh={forceUserRefresh} />
+					<UserList
+						users={users}
+						forceUserRefresh={forceUserRefresh}
+						onSort={sortUsersHandler}
+					/>
 
 					<button className="btn-add btn" onClick={addUserClickHandler}>Add new user</button>
 
