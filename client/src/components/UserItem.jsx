@@ -9,6 +9,7 @@ export default function UserItem({
     createdAt,
     imageUrl,
     onDetailsClick,
+    onDeleteClick
 }) {
     return (
         <tr>
@@ -42,7 +43,7 @@ export default function UserItem({
                         ></path>
                     </svg>
                 </button>
-                <button className="btn delete-btn" title="Delete">
+                <button className="btn delete-btn" title="Delete" onClick={() => onDeleteClick(_id)}>
                     <svg
                         aria-hidden="true"
                         focusable="false"
