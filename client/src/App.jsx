@@ -4,7 +4,7 @@ import Header from "./components/Headers.jsx"
 import Pagination from "./components/Pagination.jsx"
 import Search from "./components/Search.jsx"
 import UserList from "./components/UserList.jsx"
-import CreateUserModal from "./components/CreateUserModal.jsx"
+import UserSaveModal from "./components/UserSaveModal.jsx"
 
 function App() {
 	const [users, setUsers] = useState([]);
@@ -82,7 +82,7 @@ function App() {
 				</section>
 
 				{showCreateUser &&
-					<CreateUserModal
+					<UserSaveModal
 						onClose={closeUserModalHandler}
 						onSubmit={addUserSubmitHandler}
 					/>}
