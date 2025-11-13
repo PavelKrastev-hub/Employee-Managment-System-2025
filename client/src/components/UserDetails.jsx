@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
+import { fromIsoDate } from "../utils/datetimeUtils.js";
+
 export default function UserDetails({
+    userId,
     onClose,
 }) {
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        fetch(`http://localhost:3030/jsonstore/users/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                setUser(data);
+            })
+        // .catch(err => {
+        //     alert(err.message);
+        // });
+    }, [userId]);
+
     return (
         <div class="overlay">
             <div class="backdrop" onClick={onClose}></div>
@@ -19,24 +36,29 @@ export default function UserDetails({
                     </header>
                     <div class="content">
                         <div class="image-container">
-                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt=""
+                            <img src={user.imageUrl} alt={`${user.firstName}'s profile`}
                                 class="image" />
                         </div>
                         <div class="user-details">
-                            <p>User Id: <strong>62bb0c0eda039e2fdccba57b</strong></p>
+                            <p>User Id: <strong>{user._id}</strong></p>
                             <p>
                                 Full Name:
-                                <strong> Peter Johnson </strong>
+                                <strong> {user.firstName} {user.lastName} </strong>
                             </p>
-                            <p>Email: <strong>peter@abv.bg</strong></p>
-                            <p>Phone Number: <strong>0812345678</strong></p>
+                            <p>Email: <strong>{user.email}</strong></p>
+                            <p>Phone Number: <strong>{user.phoneNumber}</strong></p>
                             <p>
                                 Address:
-                                <strong> Bulgaria, Sofia, Aleksandar Malinov 78 </strong>
+                                <strong>
+                                    {user.address?.country}
+                                    {user.address?.city}
+                                    {user.address?.street}
+                                    {user.address?.streetNumber}
+                                </strong>
                             </p>
 
-                            <p>Created on: <strong>Wednesday, June 28, 2022</strong></p>
-                            <p>Modified on: <strong>Thursday, June 29, 2022</strong></p>
+                            <p>Created on: <strong>{fromIsoDate(user.createdAt)}</strong></p>
+                            <p>Modified on: <strong>{fromIsoDate(user.updatedAt)}</strong></p>
                         </div>
                     </div>
                 </div>
